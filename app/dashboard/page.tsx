@@ -38,7 +38,7 @@ export default async function Dashboard() {
           </Link>
           <p className="text-sm text-gray-400 mt-2">
             To edit an existing lesson, open{" "}
-            <code>/creator/lessons/&lt;id&gt;/edit</code>.
+            <code>/creator/lessons/edit?id=&lt;id&gt;</code>.
           </p>
         </div>
       )}
