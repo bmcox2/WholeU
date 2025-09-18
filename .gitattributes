@@ -1,0 +1,7 @@
+# .gitattributes
+* text=auto
+*.sh text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.css text eol=lf
