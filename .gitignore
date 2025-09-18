@@ -9,4 +9,4 @@ npm-debug.log*
 yarn-*.log*
 pnpm-lock.yaml
 .env.local
-
+*.patch

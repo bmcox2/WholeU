@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
 export async function supabaseServer() {
-  // In some Next versions cookies() is async — await it to be safe
-  const cookieStore: any = await (cookies() as any);
+  const cookieStore = await cookies(); // ← await in Next 15
 
+  // READ-ONLY in Server Components: set/remove are no-ops (avoid Next error)
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -14,13 +14,14 @@ export async function supabaseServer() {
         get(name: string) {
           return cookieStore.get(name)?.value;
         },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
+        set(_name: string, _value: string, _options: CookieOptions) {
+          // no-op in Server Components
         },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.set({ name, value: "", ...options, maxAge: 0 });
+        remove(_name: string, _options: CookieOptions) {
+          // no-op in Server Components
         },
       },
     }
   );
 }
+export default supabaseServer;

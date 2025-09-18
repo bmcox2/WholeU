@@ -1,8 +1,10 @@
-import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabaseServer';
+// app/logout/route.ts
+import { NextResponse } from "next/server";
+import { supabaseServerAction } from "@/lib/supabaseServerAction";
 
 export async function POST() {
-  const supabase = supabaseServer();
+  const supabase = await supabaseServerAction();
   await supabase.auth.signOut();
-  return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'));
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  return NextResponse.redirect(new URL("/", origin));
 }

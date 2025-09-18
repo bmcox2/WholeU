@@ -1,11 +1,13 @@
 import { supabaseServer } from "@/lib/supabaseServer";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ensureProfile } from "@/lib/ensureProfile";
 
 export default async function Dashboard() {
   const supabase = await supabaseServer();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+  await ensureProfile();
 
   const { data: profile } = await supabase
     .from("profiles")
